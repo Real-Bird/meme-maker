@@ -12,17 +12,42 @@ canvas {
   border: 5px solid black;
 }
 
-a {
-  border: 1px solid black;
-  padding: 5px;
-  margin-bottom: 5px;
-  float: left;
-  width: 115px;
-  background-color: beige;
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
 }
 
-nav {
+.color-option {
+  width: 50px;
+  height: 20px;
+  margin: 0 2px;
+  border: 2.5px solid black;
+}
+.color-option-wrapper {
+  width: 55px;
+  height: 28px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
+  transform: translateY(-2px);
+}
+.color-option-input {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  appearance: none;
+  background: transparent;
+  box-sizing: content-box;
+}
+
+.color-option-input::-webkit-color-swatch {
+  margin: 0;
+  border: 2.5px solid black;
+  width: 100%;
+  height: 100%;
 }
