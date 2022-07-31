@@ -1,105 +1,93 @@
 "use strict";
 
 const canvas = document.querySelector("canvas");
+const lineWidthChangeBtn = document.createElement("button");
+lineWidthChangeBtn.innerText = "Change Line Width!";
+lineWidthChangeBtn.style.marginTop = "5px";
+const cbxWrapper = document.createElement("div");
+cbxWrapper.style.display = "flex";
+cbxWrapper.style.flexFlow = "row";
+const lineWidthChangeLabel = document.createElement("label");
+
+[1, 2, 3, 4, 5].map((i) => {
+  const lineWidthChangeCbx = document.createElement("input");
+  lineWidthChangeCbx.type = "radio";
+  lineWidthChangeCbx.value = i;
+  lineWidthChangeCbx.name = "line-width";
+  lineWidthChangeLabel.appendChild(lineWidthChangeCbx);
+});
+cbxWrapper.appendChild(lineWidthChangeLabel);
+document.querySelector("body").appendChild(cbxWrapper);
+document.querySelector("body").appendChild(lineWidthChangeBtn);
 const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-ctx.fillRect(50, 50, 100, 100);
-ctx.strokeRect(160, 50, 100, 100);
-
-ctx.rect(270, 50, 100, 100);
-ctx.fill();
-
-ctx.beginPath();
-ctx.rect(380, 50, 100, 100);
-ctx.fillStyle = "red";
-ctx.fill();
-
-ctx.moveTo(50, 50);
-ctx.lineTo(150, 50);
-ctx.lineTo(150, 150);
-ctx.lineTo(50, 150);
-ctx.strokeStyle = "red";
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(50, 50);
-ctx.lineTo(50, 150);
-ctx.strokeStyle = "blue";
-ctx.stroke();
-
-ctx.beginPath();
-ctx.fillStyle = "black";
-ctx.strokeStyle = "black";
-ctx.fillRect(200, 400, 50, 200);
-ctx.fillRect(400, 400, 50, 200);
 ctx.lineWidth = 2;
-ctx.strokeRect(300, 500, 50, 100);
-ctx.fillRect(200, 400, 200, 20);
-ctx.moveTo(180, 400);
-ctx.lineTo(325, 350);
-ctx.lineTo(470, 400);
-ctx.fillStyle = "tomato";
-ctx.fill();
+const grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+const colors1 = [
+  "#2d3436",
+  "#e84393",
+  "#d63031",
+  "#e17055",
+  "#fdcb6e",
+  "#00b894",
+  "#00cec9",
+  "#0984e3",
+  "#6c5ce7",
+  "#b2bec3",
+];
+const colors2 = [
+  "#636e72",
+  "#fd79a8",
+  "#ff7675",
+  "#fab1a0",
+  "#ffeaa7",
+  "#55efc4",
+  "#81ecec",
+  "#74b9ff",
+  "#a29bfe",
+  "#dfe6e9",
+];
 
-ctx.beginPath();
-ctx.moveTo(200, 600);
-ctx.lineTo(450, 600);
-ctx.stroke();
+let isPainting = false;
 
-ctx.beginPath();
-ctx.arc(310, 560, 3, 5, 10);
-ctx.fillStyle = "black";
-ctx.fill();
+function onMousemove({ offsetX, offsetY }) {
+  if (isPainting) {
+    ctx.lineTo(offsetX, offsetY);
+    ctx.stroke();
+    return;
+  }
+  ctx.moveTo(offsetX, offsetY);
+}
 
-// head
-ctx.beginPath();
-ctx.arc(580, 470, 30, 0, 2 * Math.PI);
-ctx.fill();
+function startPainting() {
+  ctx.beginPath();
+  const color1 = colors1[Math.ceil(Math.random() * colors1.length)];
+  const color2 = colors2[Math.ceil(Math.random() * colors2.length)];
+  console.log(color1, color2);
+  grd.addColorStop(0, color1);
+  grd.addColorStop(1, color2);
+  ctx.strokeStyle = grd;
+  isPainting = true;
+}
 
-// eyes
-ctx.beginPath();
-ctx.arc(565, 465, 8, 0, 2 * Math.PI);
-ctx.arc(595, 465, 8, 0, 2 * Math.PI);
-ctx.fillStyle = "white";
-ctx.fill();
+function cancelPainting() {
+  isPainting = false;
+}
 
-// mouth
-ctx.beginPath();
-ctx.arc(580, 480, 5, 0, 1 * Math.PI);
-ctx.fillStyle = "white";
-ctx.fill();
+let lineWidthValue;
+function getLineWidthValue({ target: { value } }) {
+  lineWidthValue = value;
+}
 
-// body
-ctx.beginPath();
-ctx.fillStyle = "black";
-ctx.fillRect(565, 500, 30, 80);
+function lineWidthChange() {
+  ctx.lineWidth = +lineWidthValue;
+}
 
-// left arm
-ctx.beginPath();
-ctx.moveTo(565, 500);
-ctx.lineTo(540, 560);
-ctx.lineWidth = 10;
-ctx.stroke();
-
-// right arm
-ctx.beginPath();
-ctx.moveTo(595, 500);
-ctx.lineTo(620, 560);
-ctx.lineWidth = 10;
-ctx.stroke();
-
-// left leg
-ctx.beginPath();
-ctx.moveTo(570, 570);
-ctx.lineTo(565, 650);
-ctx.lineWidth = 10;
-ctx.stroke();
-
-// right leg
-ctx.beginPath();
-ctx.moveTo(590, 570);
-ctx.lineTo(595, 650);
-ctx.lineWidth = 10;
-ctx.stroke();
+canvas.addEventListener("mousemove", onMousemove);
+canvas.addEventListener("mousedown", startPainting);
+canvas.addEventListener("mouseup", cancelPainting);
+canvas.addEventListener("mouseleave", cancelPainting);
+lineWidthChangeLabel.addEventListener("click", getLineWidthValue);
+lineWidthChangeBtn.addEventListener("click", lineWidthChange);
