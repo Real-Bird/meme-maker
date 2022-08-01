@@ -12,6 +12,22 @@ canvas {
   border: 5px solid black;
 }
 
+.current-color {
+  width: 50px;
+  height: fit-content;
+  background: #000;
+  position: absolute;
+  font-size: small;
+  text-align: center;
+  top: 10px;
+  left: 10px;
+}
+
+.current-color-font {
+  color: white;
+  mix-blend-mode: difference;
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -24,7 +40,9 @@ canvas {
   height: 20px;
   margin: 0 2px;
   border: 2.5px solid black;
+  cursor: pointer;
 }
+
 .color-option-wrapper {
   width: 55px;
   height: 28px;
@@ -43,6 +61,7 @@ canvas {
   appearance: none;
   background: transparent;
   box-sizing: content-box;
+  cursor: pointer;
 }
 
 .color-option-input::-webkit-color-swatch {
