@@ -6,36 +6,89 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Kanit:wght@300&display=swap" rel="stylesheet">
   <title>Meme Maker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-  <canvas></canvas>
-  <div class="current-color"><span class="current-color-font">Current Color</span></div>
-  <input id="line-width" type="range" min="1" max="10" value="5" step="0.5" />
-  <div class="wrapper">
-    <div class="color-option" style="background-color: #d35400" data-color="#d35400"></div>
-    <div class="color-option" style="background-color: #e74c3c" data-color="#e74c3c"></div>
-    <div class="color-option" style="background-color: #e67e22" data-color="#e67e22"></div>
-    <div class="color-option" style="background-color: #f1c40f" data-color="#f1c40f"></div>
-    <div class="color-option" style="background-color: #2ecc71" data-color="#2ecc71"></div>
-    <div class="color-option" style="background-color: #27ae60" data-color="#27ae60"></div>
-    <div class="color-option" style="background-color: #1abc9c" data-color="#1abc9c"></div>
-    <div class="color-option" style="background-color: #3498db" data-color="#3498db"></div>
-    <div class="color-option" style="background-color: #8e44ad" data-color="#8e44ad"></div>
-    <div class="color-option" style="background-color: #34495e" data-color="#34495e"></div>
-    <div class="color-option" style="background-color: #bdc3c7" data-color="#bdc3c7"></div>
-    <div class="color-option" style="background-color: #95a5a6" data-color="#95a5a6"></div>
-    <div class="color-option-wrapper">
-      <input class="color-option-input" type="color" id="color" />
+  <div class="flex flex-col mt-6 w-full justify-center items-center space-y-3">
+    <h1 class="font-gugi text-5xl font-bold title">Meme Maker !</h1>
+    <div class="flex flex-row w-full justify-center space-x-3">
+      <div class="flex flex-col justify-between items-end w-64">
+        <div class="current-color text-center">
+          <span class="inline-block current-color-font">Current Color</span>
+        </div>
+        <div class="color-option" style="background-color: #000" data-color="#000"></div>
+        <div class="color-option" style="background-color: #d35400" data-color="#d35400"></div>
+        <div class="color-option" style="background-color: #e74c3c" data-color="#e74c3c"></div>
+        <div class="color-option" style="background-color: #e67e22" data-color="#e67e22"></div>
+        <div class="color-option" style="background-color: #f1c40f" data-color="#f1c40f"></div>
+        <div class="color-option" style="background-color: #2ecc71" data-color="#2ecc71"></div>
+        <div class="color-option" style="background-color: #27ae60" data-color="#27ae60"></div>
+        <div class="color-option" style="background-color: #1abc9c" data-color="#1abc9c"></div>
+        <div class="color-option" style="background-color: #3498db" data-color="#3498db"></div>
+        <div class="color-option" style="background-color: #8e44ad" data-color="#8e44ad"></div>
+        <div class="color-option" style="background-color: #34495e" data-color="#34495e"></div>
+        <div class="color-option" style="background-color: #bdc3c7" data-color="#bdc3c7"></div>
+        <div class="color-option" style="background-color: #95a5a6" data-color="#95a5a6"></div>
+        <div class="color-option" style="background-color: #fff" data-color="#fff"></div>
+        <div class="color-option-wrapper flex flex-col">
+          <input class="color-option-input" type="color" id="color" />
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <canvas></canvas>
+      </div>
+      <div class="flex flex-col justify-center items-start space-y-3 w-64">
+        <div class="flex flex-col items-start justify-center">
+          <label for="line-width" class="ml-3 font-kanit font-semibold">Line Width</label>
+          <input id="line-width" class="rounded-lg overflow-hidden appearance-none bg-gray-400 h-5 w-64" type="range"
+            min="1" max="10" value="5" step="0.5" />
+        </div>
+        <div class="flex flex-row w-full space-x-2 px-5">
+          <button
+            class="pointer-events-auto  rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500 flex-1"
+            id="mode-btn">Fill</button>
+          <button
+            class="pointer-events-auto  rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500 flex-1"
+            id="destroy-btn">Destroy</button>
+          <button
+            class="pointer-events-auto  rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500 flex-1"
+            id="eraser-btn">Eraser</button>
+        </div>
+        <div class="flex justify-center items-center w-full">
+          <label for="file"
+            class="flex flex-col justify-center items-center w-full h-24 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+            <div class="flex flex-col justify-center items-center pt-5 pb-6">
+              <svg aria-hidden="true" class="my-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              </svg>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                  upload</span> or drag and drop</p>
+            </div>
+            <input type="file" accept="image/*" id="file" class="hidden" />
+          </label>
+        </div>
+        <div class="relative w-full">
+          <input type="text"
+            class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            aria-describedby="floating_helper_text" placeholder=" " id="text" />
+          <label for="textr"
+            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Write
+            and then double click</label>
+        </div>
+        <button
+          class="pointer-events-auto w-full  rounded-md bg-indigo-600 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500"
+          id="save">Save Image</button>
+      </div>
     </div>
   </div>
-  <div>
-    <button id="mode-btn">Fill</button>
-    <button id="destroy-btn">Destroy</button>
-    <button id="eraser-btn">Eraser</button>
-  </div>
-  <script src="app.js"></script>
 </body>
+<script src="app.js"></script>
 
 </html>
