@@ -49,7 +49,7 @@ function onLineWidthChange({ target: { value } }) {
   ctx.lineWidth = value;
 }
 
-let fillingModeColor;
+let fillingModeColor = "#d2b48c";
 
 function onChangeColor({
   target: {
@@ -79,6 +79,8 @@ function onCanvasClick() {
   if (isFilling) {
     ctx.beginPath();
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    isFilling = false;
+    modeBtn.innerText = "Fill";
   }
 }
 
